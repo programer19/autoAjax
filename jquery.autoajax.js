@@ -39,11 +39,15 @@
                 protoObject._actFunc = function(e){
                     e.preventDefault();
                     var frm = $(this);
+                    
+                    var formData = new FormData($(this).get(0));
 
                     $.ajax({
                         url: frm.attr('action'),
                         type: frm.attr('method'),
-                        data: frm.serialize(),
+                        data: formData,
+                        processData: false,
+                        contentType: false,
                         success: protoObject._handlers[frm.attr('data-success') || 'defaultSuccess'] || function(data){
                             console.log(data);
                         },
